@@ -1,0 +1,45 @@
+/* Angular Material Design Class Overrides*/
+.md-headline{
+	margin:0px;
+}
+md-toast.md-error-toast-theme .md-toast-content{
+    background-color: red;
+}
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: green;
+}
+/* Custom Styles */
+.fixed-bottom{
+	position: fixed;
+}
+.required{
+	color:rgb(221,44,0);
+	font-size:12px;
+}
+table{
+	margin-top:10px;
+}
+table, table td{
+	border: 1px solid #99c2ff;
+}
+table th{
+	background-color:#99c2ff;
+	text-align: left;
+}
+table td, table th{
+	padding:5px;
+	width: 20%;
+}
+table{
+	width:100%;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+.red-text{
+	color:red;
+}
+.green-text{
+	color:green;
+}
+
