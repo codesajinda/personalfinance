@@ -14,7 +14,7 @@ class UserHelper
 	      }
 	      else
 	      {        
-	        //SessionHelper::RedirectToLogin();
+	        SessionHelper::RedirectToLogin();
 	      }
 	    }
 	    else{
