@@ -1,11 +1,11 @@
 <?php 
-    //Trigger session to set the document root value
     require_once($_SERVER["DOCUMENT_ROOT"]. '/controls/global.php');
     require_once($_SESSION['documentRoot'] .'/controls/layout.php');
     require_once($_SESSION['documentRoot'] .'/BLLManager/UserManager.php');    
     require_once($_SESSION['documentRoot'] .'/Objects/User.php');
 
     $message = ''; 
+    $redirect = '';
 
     SessionHelper::ClearSession('user');
 
@@ -15,14 +15,16 @@
         $user = $userManager->Login(trim($_POST["username"]), trim($_POST["password"]));
         if($user != null){
             SessionHelper::SetSession('user', $user);
-            header("Location: " .  $_SESSION['siteUrl'] . 'home.php');
-            die();
+            if(SessionHelper::IsSessionSet('user')){
+                $redirect = "<script type=\"text/javascript\">window.location.href = '" . $_SESSION['siteUrl'] . 'home.php'. "'</script>";
+            }
         }
         else{
             $message = "Username and password is incorrect";
         }
     }
 ?>
+<?php echo $redirect;?>
 <!--Constants-->
 <script type="text/javascript">
     angular.module('personalFinance').constant('Constants', {

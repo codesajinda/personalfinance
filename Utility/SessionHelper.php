@@ -18,6 +18,10 @@ class SessionHelper
       SessionHelper::ClearSession('user');
       header("Location: " .  $_SESSION['siteUrl'] . 'index.php');
     }
+
+    public static function IsSessionSet($key){
+        return $_SESSION[$key] != null;
+    }
 }
 
 
