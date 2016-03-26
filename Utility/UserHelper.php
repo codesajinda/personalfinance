@@ -8,7 +8,7 @@ class UserHelper
 	    if($user != null){
 	      $userManager = new UserManager();
 	      $loggedUser = $userManager->GetUser($user->GetUsername(), $user->GetPassword());
-	      if($loggedUser != null)
+	      if($loggedUser!=null)
 	      {
     		return $loggedUser;
 	      }
@@ -18,7 +18,7 @@ class UserHelper
 	      }
 	    }
 	    else{
-		      SessionHelper::RedirectToLogin();
+		     SessionHelper::RedirectToLogin();
 	    }
     }
 

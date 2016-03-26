@@ -50,7 +50,7 @@ class UserManager extends BaseManager{
 			if ($rows->num_rows > 0) {
 			    while($row = $rows->fetch_assoc()) {			    	
 			    	$decrypted = trim($encrypt->decrypt($row['Password']));
-			    	$password = $encrypt->decrypt($password);
+			    	$password = trim($encrypt->decrypt($password));
 			        if($username == $row['Username'] && $password == $decrypted){
 			        	$user = new User();	
 			        	$user->SetUserID($row['UserID']);
