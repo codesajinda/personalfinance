@@ -72,7 +72,7 @@ class UserManager extends BaseManager{
 		if($user != null)
 		{			
 			$params = array($user->GetUsername(), $encrypt->encrypt($user->GetPassword()), $user->GetIsActive());		
-			$success = $this->dataAccess->Create($params);		
+			$success = $this->dataAccess->Create($params);	
 		}
 
 		return $success;
