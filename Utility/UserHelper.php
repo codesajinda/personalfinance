@@ -1,5 +1,5 @@
 <?php 
- require_once($_SESSION['documentRoot'] .'/BLLManager/UserManager.php');   
+require_once($_SESSION['documentRoot'] .'/BLLManager/UserManager.php');   
 class UserHelper
 {
 	public static function Authenticate() {
@@ -8,18 +8,15 @@ class UserHelper
 	    if($user != null){
 	      $userManager = new UserManager();
 	      $loggedUser = $userManager->GetUser($user->GetUsername(), $user->GetPassword());
-	      if($loggedUser!=null)
-	      {
-    		return $loggedUser;
-	      }
-	      else
+	      if($loggedUser==null)	      
 	      {        
-	        SessionHelper::RedirectToLogin();
+	        UserHelper::Logout();
 	      }
 	    }
 	    else{
-		     SessionHelper::RedirectToLogin();
+		     UserHelper::Logout();
 	    }
+	    return $loggedUser;
     }
 
     public static function Logout() {
