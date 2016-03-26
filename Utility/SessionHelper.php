@@ -16,7 +16,7 @@ class SessionHelper
 
     public static function RedirectToLogin(){ 
       SessionHelper::ClearSession('user');
-      header("Location: " .  $_SESSION['siteUrl'] . 'default.php');
+      header("Location: " .  $_SESSION['siteUrl'] . 'index.php');
     }
 }
 
