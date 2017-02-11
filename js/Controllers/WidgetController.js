@@ -1,14 +1,17 @@
-angular.module('personalFinance').controller('WidgetController', ['$scope', 'Constants', function($scope, Constants){
+angular.module('personalFinance').controller('WidgetController', ['$scope', 'Constants', '$filter', function($scope, Constants, $filter){
 	var self = this;	
 	self.message = '';
 	self.widgetOneExpense = 0;
 	self.widgetOneSavings = 0;
 	self.currentMonthExpenses = [];
 	self.currentMonthSavings = [];
+	self.currentMonthCategoryExpenses = [];
+	self.currentMonthCategoryExpenseTotal = 0;
 	self.expenses = [];
 	self.savings = [];
 	self.widgetOneSavingsClass = 'green-text';
 	self.expenseSavings = (Constants.expenseSavings != '') ? JSON.parse(Constants.expenseSavings) : [];
+	console.log(self.expenseSavings);
 
 	//Set the global error message
 	$scope.$on('notifyMessage', function(events, args){
@@ -17,6 +20,7 @@ angular.module('personalFinance').controller('WidgetController', ['$scope', 'Con
 
 	buildExpenseSavingWidget();
 	buildExpenseSavingWidgetTwo();
+	buildCategoryExpenseWidgetThree();
 
 	function buildExpenseSavingWidget(){
 		self.widgetOneExpense = 0;
@@ -47,23 +51,69 @@ angular.module('personalFinance').controller('WidgetController', ['$scope', 'Con
 			for (var i = 0; i < self.expenseSavings[0].length; i++) {
 				var date = new Date(self.expenseSavings[0][i].ExpenseDate)		
 
-				if(self.lastMonthDate >= date && date <= self.todaysDate){
+				if( date >= self.lastMonthDate && date <= self.todaysDate){
+					self.expenseSavings[0][i].ExpenseDate = $filter('date')(date, 'fullDate');
 					self.currentMonthExpenses.push(self.expenseSavings[0][i]);
-					expense += self.expenseSavings[0][i].Amount + expense;
+					expense = parseFloat(self.expenseSavings[0][i].Amount) + parseFloat(expense);
 				}
 			}
 			for (var i = 0; i < self.expenseSavings[1].length; i++) {
 				var date = new Date(self.expenseSavings[1][i].SavingDate)		
 
-				if(self.lastMonthDate >= date && date <= self.todaysDate){
+				if(date >= self.lastMonthDate && date <= self.todaysDate){
+					self.expenseSavings[1][i].SavingDate = $filter('date')(date, 'fullDate');
 					self.currentMonthSavings.push(self.expenseSavings[1][i]);
 					self.expenseSavings[1][i].Amount;
-					saving += self.expenseSavings[1][i].Amount + saving;
+					saving =  parseFloat(self.expenseSavings[1][i].Amount) +  parseFloat(saving);
 				}
 			}
 		}
-		self.expenseOrSaving = saving - expense;
-		self.widgetTwoSavingsClass = (self.widgetTwoSavingsClass > 0) ? 'green-text':'red-text';
+		self.expenseOrSaving = parseFloat(saving - expense);
+		self.widgetTwoSavingsClass = (self.expenseOrSaving > 0) ? 'green-text':'red-text';
+	}
+
+	function buildCategoryExpenseWidgetThree(){
+		var date = new Date();
+		var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1);
+		var total = 0;
+		if(self.expenseSavings.length > 0){
+			for (var i = 0; i < self.expenseSavings[0].length; i++) {
+				var date = new Date(self.expenseSavings[0][i].ExpenseDate)		
+
+				if(date >= firstDay && date < lastDay){
+					total = total + parseInt(self.expenseSavings[0][i].Amount);
+					var mainObject =		
+							{
+								CategoryID: self.expenseSavings[0][i].CategoryID,
+								CategoryName: self.expenseSavings[0][i].CategoryName,
+								Amount: 0,
+							};
+					 var index = getIndexOfObject(self.currentMonthCategoryExpenses, mainObject, 'CategoryID');
+					 if(index > -1){
+					 	self.currentMonthCategoryExpenses[index].Amount = self.currentMonthCategoryExpenses[index].Amount + parseInt(self.expenseSavings[0][i].Amount);
+					 	
+					 }		
+					 else{
+					 	mainObject.Amount = mainObject.Amount + parseInt(self.expenseSavings[0][i].Amount);
+					 	self.currentMonthCategoryExpenses.push(mainObject);
+					 }			
+					
+				}
+			}
+			self.currentMonthCategoryExpenseTotal = total;
+		}
+	}
+
+	function getIndexOfObject(array, obj, proprerty){
+		var index = -1;
+		for (var i = 0; i < array.length; i++) {
+			if(array[i][proprerty] == obj[proprerty]){	
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 
 }]);

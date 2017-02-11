@@ -12,7 +12,7 @@ angular.module('personalFinance').controller('NotificationController', ['$scope'
 		switch(self.mode)
 		{
 			case 0:
-				window.location.href = '/index.php';
+				window.location.href = '/home.php';
 				break;
 			case 1:
 				window.location.href = '/expenseReport.php';

@@ -70,6 +70,7 @@
             <h4>Expenses for the period {{ Widget.lastMonthDate | date : 'dd/MM/yyyy' }} - {{ Widget.todaysDate | date : 'dd/MM/yyyy' }} </h4>
             <table>
               <thead>
+                <th>Date</th>
                 <th>Category</th>
                 <th>Expense Name</th>
                 <th>Expense Description</th>
@@ -77,8 +78,9 @@
               </thead>
               <tbody>
                 <tr ng-repeat="currentMonthExpense in Widget.currentMonthExpenses" >
-                  <td>{{currentMonthExpense.CategoryName}}</td>
-                  <td>{{currentMonthExpense.ExpenseName}}</td>
+                  <td>{{currentMonthExpense.ExpenseDate}}</td>
+                  <td>{{currentMonthExpense.CategoryName}}</td>           
+                  <td>{{currentMonthExpense.ExpenseName}}</td>                    
                   <td>{{currentMonthExpense.ExpenseDescription}}</td>
                   <td class="red-text">{{currentMonthExpense.Amount}}</td>
                 </tr>
@@ -87,8 +89,9 @@
             <br/>          
             <md-divider></md-divider>
             <h4>Savings for the period {{ Widget.lastMonthDate | date : 'dd/MM/yyyy' }} - {{ Widget.todaysDate | date : 'dd/MM/yyyy' }} </h4>
-            <table>              
+            <table width="100%">              
               <thead>
+                <th>Date</th>
                 <th>Category</th>
                 <th>Saving Name</th>
                 <th>Saving Description</th>
@@ -96,6 +99,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="currentMonthSaving in Widget.currentMonthSavings" >
+                  <td>{{currentMonthSaving.SavingDate}}</td>
                   <td>{{currentMonthSaving.CategoryName}}</td>
                   <td>{{currentMonthSaving.SavingName}}</td>
                   <td>{{currentMonthSaving.SavingDescription}}</td>
@@ -108,6 +112,23 @@
             <h4>You saved : <span ng-class="Widget.widgetTwoSavingsClass">{{ Widget.expenseOrSaving }}</h4>
           </md-content>
         </md-tab>
+         <md-tab label="monthly category expenses">
+          <md-content class="md-padding">
+            <h1 class="md-title">Monthly Category Expenses</h1>
+            <h4>Expenses by category for current month</h4>
+            <table>
+              <tbody>
+                <tr ng-repeat="currentMonthExpense in Widget.currentMonthCategoryExpenses" >                  
+                  <td class="bg-blue">{{currentMonthExpense.CategoryName}}</td>  
+                  <td class="red-text">{{currentMonthExpense.Amount}}</td>
+                </tr>
+              </tbody>
+            </table>  
+             <md-divider></md-divider>
+            <h4>You Spent : <span ng-class="red-text">{{ Widget.currentMonthCategoryExpenseTotal }}</h4>
+          </md-content>
+        </md-tab>
+
       </md-tabs>
     </md-content>
   </div>

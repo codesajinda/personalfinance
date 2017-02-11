@@ -7,7 +7,7 @@ class SavingDataAccess extends DataAccess{
 
 	public function Create($params){			
 		$connection = $this->Connect();
-		$this->queryAndParams = sprintf('INSERT INTO `saving` (`SavingName`, `SavingDescription`, `SavingDate`, `Amount`, `CategoryID`, `UserID`, `IsActive`) VALUES(\'%s\', \'%s\', \'%s\', %d, %u, %u, %b)', $connection->real_escape_string($params[0]), $connection->real_escape_string($params[1]), $connection->real_escape_string($params[2]), $connection->real_escape_string($params[3]), $connection->real_escape_string($params[4]), $connection->real_escape_string($params[5]),  $connection->real_escape_string($params[6]));
+		$this->queryAndParams = sprintf('INSERT INTO `saving` (`SavingName`, `SavingDescription`, `SavingDate`, `Amount`, `CategoryID`, `UserID`, `IsActive`) VALUES(\'%s\', \'%s\', \'%s\', %f, %u, %u, %b)', $connection->real_escape_string($params[0]), $connection->real_escape_string($params[1]), $connection->real_escape_string($params[2]), $connection->real_escape_string($params[3]), $connection->real_escape_string($params[4]), $connection->real_escape_string($params[5]),  $connection->real_escape_string($params[6]));
 		return $this->ExecuteQuery();
 	}
 

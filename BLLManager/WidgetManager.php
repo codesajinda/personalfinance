@@ -22,8 +22,9 @@ class WidgetManager{
 		$expenseRows = $this->expenseDataAccess->GetExpensesByUserID($params);	
 		if ($expenseRows->num_rows > 0) {
 			$expenses = array();
-		    while($expenseRow = $expenseRows->fetch_assoc()) {	  
+		    while($expenseRow = $expenseRows->fetch_assoc()) {	
 	        	$expense = new ExpenseReport();
+	        	$expense->CategoryID = $expenseRow['CategoryID']; 
 				$expense->ExpenseName = $expenseRow['ExpenseName']; 
 				$expense->ExpenseDescription = $expenseRow['ExpenseDescription'];
 				$expense->ExpenseDate = $expenseRow['ExpenseDate'];		
@@ -45,6 +46,7 @@ class WidgetManager{
 			$savings = array();
 		    while($savingRow = $savingRows->fetch_assoc()) {
 	        	$saving = new SavingReport();
+	        	$saving->CategoryID = $savingRow['CategoryID']; 
 				$saving->SavingName = $savingRow['SavingName']; 
 				$saving->SavingDescription = $savingRow['SavingDescription'];
 				$saving->SavingDate = $savingRow['SavingDate'];

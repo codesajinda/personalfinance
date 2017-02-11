@@ -26,7 +26,7 @@ class CategoryDataAccess extends DataAccess{
 	}
 	public function GetByCategoryID($params){
 		$connection = $this->Connect();
-		$this->queryAndParams = sprintf('SELECT * FROM `category` WHERE `category`.`CategoryID` = %u AND `category`.`IsActive` = 1', $connection->real_escape_string($params[0]));			
+		$this->queryAndParams = sprintf('SELECT * FROM `category` WHERE `category`.`CategoryID` = %u AND `category`.`IsActive` = 1', $connection->real_escape_string($params));			
 		return $this->ExecuteQuery();
 	}
 

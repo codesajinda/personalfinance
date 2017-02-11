@@ -47,13 +47,13 @@
     }
 
     if(isset($_POST['hdnSaving']) && !empty($_POST["hdnSaving"])){
-      $postdata = json_decode($_POST['hdnSaving'], true); 
+      $postdata = json_decode($_POST['hdnSaving'], true);
       $date =  new DateTime($postdata['SavingDate']);
       $savingDate = $date->format('Y-m-d');
       $saving = new Saving();
       $saving->SetSavingName($postdata['SavingName']);
       $saving->SetDescription($postdata['SavingDescription']);      
-      $expense->SetAmount($postdata['Amount']);
+      $saving->SetAmount($postdata['Amount']);
       $saving->SetDate($savingDate);
       $saving->SetCategoryID($postdata['SavingCategory']['CategoryID']);
       $saving->SetUserID($loggedUser->GetUserID());
@@ -113,7 +113,7 @@
         <textarea id="expenseDescription" ng-model="Main.expense.ExpenseDescription" placeholder="Description"></textarea>
       </md-input-container>        
       <md-datepicker id="dtExpenseDate" name="dtExpenseDate" md-placeholder="Select Date" ng-model="Main.expense.ExpenseDate" ng-required="true">
-     </md-datepicker>  
+      </md-datepicker>  
       <div ng-show="frmExpense.dtExpenseDate.$error.required" class="required">Date is required.</div>  
       <md-input-container class="md-block">    
         <label for="txtExpenseAmount">Amount:</label>

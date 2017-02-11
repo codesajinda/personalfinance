@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
+    <meta name="robots" content="noindex, nofollow"/>
 
     <title>Personal Finance</title>
     <link rel="stylesheet" href="<?php echo $_SESSION['siteUrl']?>bower_components/angular-material/angular-material.min.css" />

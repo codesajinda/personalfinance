@@ -42,4 +42,9 @@ table{
 .green-text{
 	color:green;
 }
-
+.md-datepicker{
+	width:300px;
+}
+.bg-blue{
+	background-color: #99c2ff;
+}
