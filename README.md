@@ -6,4 +6,3 @@ The personal finance is a small application that was built to manage day-to-day 
 3. CSS
 4. Angular Material with Angular JS
 
-The application can be viewed here http://pf.csmasterpiece.com/ . However, the user needs a valid login and a password to view the system. You can use the following credentials to view the system (username:demo, password:demo).
